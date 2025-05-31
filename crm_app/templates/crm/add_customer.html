@@ -1,0 +1,35 @@
+{% extends 'crm/base.html' %}
+{% block title %}Mijoz Qo'shish{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Mijoz Qo'shish</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label class="form-label">Ism</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Telefon</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                    <a href="{% url 'customer_list' %}" class="btn btn-secondary ms-2">Orqaga</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'crm/base.html' %}
+{% block title %}Asosiy Sahifa{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Asosiy Panel</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-overview">
+                <i class="bi bi-box icon"></i>
+                <div class="text">
+                    <h5>Mahsulotlar Soni</h5>
+                    <p>{{ product_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-overview">
+                <i class="bi bi-people icon"></i>
+                <div class="text">
+                    <h5>Mijozlar Soni</h5>
+                    <p>{{ customer_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-overview">
+                <i class="bi bi-cart icon"></i>
+                <div class="text">
+                    <h5>Buyurtmalar Soni</h5>
+                    <p>{{ order_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-overview">
+                <i class="bi bi-currency-dollar icon"></i>
+                <div class="text">
+                    <h5>Umumiy Buyurtma Narxi</h5>
+                    <p>${{ total_order_amount_usd }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4>Diagrammalar</h4>
+            <!-- Pie Chart -->
+            <div class="chart-container mb-4">
+                <canvas id="categoryPieChart"></canvas>
+            </div>
+            <!-- Line Graph -->
+            <div class="chart-container">
+                <canvas id="priceLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4>So‘nggi Mahsulotlar</h4>
+            {% if latest_products %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nomi</th>
+                            <th>Narxi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in latest_products %}
+                            <tr class="table-row">
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }} so'm</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Hozircha mahsulotlar yo‘q.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    const chartData = {{ chart_data|safe }};
+    console.log("Chart Data (JS):", chartData);
+
+    const categoryPieCtx = document.getElementById('categoryPieChart');
+    if (categoryPieCtx) {
+        new Chart(categoryPieCtx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(chartData.category_prices),
+                datasets: [{
+                    label: 'Kategoriyalar bo‘yicha Narxlar (so‘m)',
+                    data: Object.values(chartData.category_prices),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Kategoriyalar bo‘yicha Narxlar' }
+                }
+            }
+        });
+    } else {
+        console.error("categoryPieChart canvas topilmadi");
+    }
+
+    const priceLineCtx = document.getElementById('priceLineChart');
+    if (priceLineCtx) {
+        new Chart(priceLineCtx, {
+            type: 'line',
+            data: {
+                labels: chartData.product_ids.map(id => `Mahsulot ID ${id}`),
+                datasets: [{
+                    label: 'Mahsulot Narxi $$',
+                    data: chartData.product_prices,
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Mahsulot Narxi O‘zgarishi' }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Narx $$' } },
+                    x: { title: { display: true, text: 'Mahsulot ID' } }
+                }
+            }
+        });
+    } else {
+        console.error("priceLineChart canvas topilmadi");
+    }
+</script>
+{% endblock %}

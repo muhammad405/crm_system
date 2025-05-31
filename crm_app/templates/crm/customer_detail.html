@@ -1,0 +1,15 @@
+{% extends 'crm/base.html' %}
+{% block title %}Mijoz Ma’lumotlari{% endblock %}
+{% block content %}
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-success">Mijoz Ma’lumotlari</h1>
+    </div>
+    <div class="card mx-auto" style="max-width: 500px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
+        <div class="card-body">
+            <p><strong>Ism:</strong> {{ customer.name }}</p>
+            <p><strong>Telefon:</strong> {{ customer.phone }}</p>
+            <p><strong>Email:</strong> {{ customer.email }}</p>
+            <a href="{% url 'customer_list' %}" class="btn btn-primary mt-3">Orqaga</a>
+        </div>
+    </div>
+{% endblock %}

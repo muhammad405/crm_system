@@ -1,0 +1,1 @@
+<script src="{% static 'JavaScript.js' %}"></script>

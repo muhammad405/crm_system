@@ -1,0 +1,14 @@
+{% extends 'crm/base.html' %}
+{% block title %}Tizimga Kirish{% endblock %}
+{% block content %}
+    <h1>Tizimga Kirish</h1>
+    {% if form.errors %}
+        <p class="error">Foydalanuvchi nomi yoki parol xato!</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Kirish</button>
+    </form>
+    <p><a href="{% url 'password_reset' %}">Parolni unutdingizmi?</a></p>
+{% endblock %}

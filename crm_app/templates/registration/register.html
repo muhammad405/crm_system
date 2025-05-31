@@ -1,0 +1,42 @@
+{% extends 'registration/base_no_nav.html' %}
+{% block title %}Kirish{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-success">Kirish</h1>
+        <p class="lead text-muted">Tizimga kirish uchun login va parolni kiriting.</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fw-semibold">Login</label>
+                            <input type="text" name="username" id="id_username" class="form-control"  value="{{ form.data.username|default_if_none:'' }}" required>
+                            {% if form.errors.username %}
+                                <div class="text-danger mt-1">Login yoki parol xato</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label fw-semibold">Parol</label>
+                            <input type="password" name="password1" id="id_password1" class="form-control"  required>
+                            {% if form.errors.password1 %}
+                                <div class="text-danger mt-1">{{ form.errors.password1 }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 py-2">Kirish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

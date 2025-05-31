@@ -1,0 +1,22 @@
+{% extends 'crm/base.html' %}
+{% block title %}Buyurtma Ma’lumotlari{% endblock %}
+{% block content %}
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-warning">Buyurtma Ma’lumotlari</h1>
+    </div>
+    <div class="card mx-auto" style="max-width: 700px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
+        <div class="card-body">
+            <p><strong>Mijoz:</strong> {{ order.customer.name }}</p>
+            <p><strong>Umumiy Narx:</strong> {{ order.total_amount }}</p>
+            <p><strong>Sana:</strong> {{ order.order_date }}</p>
+            <p><strong>Holati:</strong> {{ order.status }}</p>
+            <h5>Mahsulotlar:</h5>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                    <li>{{ item.product.name }} - {{ item.quantity }} dona - {{ item.price }} so‘m</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'order_list' %}" class="btn btn-primary mt-3">Orqaga</a>
+        </div>
+    </div>
+{% endblock %}

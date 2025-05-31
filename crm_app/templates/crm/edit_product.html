@@ -1,0 +1,11 @@
+{% extends 'crm/base.html' %}
+{% block title %}Mahsulotni Tahrirlash{% endblock %}
+{% block content %}
+    <h1>Mahsulotni Tahrirlash</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Yangilash</button>
+    </form>
+    <a href="{% url 'product_detail' pk=product.pk %}">Orqaga</a>
+{% endblock %}

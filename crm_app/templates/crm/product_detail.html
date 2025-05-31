@@ -1,0 +1,14 @@
+{% extends 'crm/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p><strong>Tavsif:</strong> {{ product.description }}</p>
+    <p><strong>Narx:</strong> {{ product.price }}</p>
+    <p><strong>Zaxira:</strong> {{ product.stock }}</p>
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+    {% endif %}
+    <a href="{% url 'product_list' %}">Orqaga</a>
+    {% if user.is_authenticated %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'crm/base.html' %}
+{% block title %}Buyurtmalar Ro'yxati{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Buyurtmalar Ro'yxati</h2>
+    <div class="text-end mb-3">
+        <a href="{% url 'add_order' %}" class="btn btn-primary">Buyurtma Qo'shish</a>
+    </div>
+    {% if orders %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Mijoz</th>
+                    <th>Jami Summa</th>
+                    <th>Status</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr class="table-row">
+                        <td>{{ order.customer.name }}</td>
+                        <td>{{ order.total_amount }} so'm</td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <a href="{% url 'delete_order' order.pk %}" class="btn btn-danger btn-sm">O'chirish</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center">Hozircha buyurtmalar yo‘q.</p>
+    {% endif %}
+</div>
+{% endblock %}
