@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
             model_name="product",
             name="category",
             field=models.CharField(
-                choices=[("erkak", "Erkak"), ("ayol", "Ayol"), ("bolalar", "Bolalar")],
+                choices=[("erkak", "Erkak"), ("ayol", "Ayol"), ("bolalar", "Bol
+alar")],
                 max_length=50,
             ),
         ),

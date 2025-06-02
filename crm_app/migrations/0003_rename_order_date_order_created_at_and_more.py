@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("crm_app", "0002_remove_product_description_alter_product_category_and_more"),
+        ("crm_app", "0002_remove_product_description_alter_product_category_and
+_more"),
     ]
 
     operations = [
@@ -32,7 +33,8 @@ class Migration(migrations.Migration):
             model_name="order",
             name="status",
             field=models.CharField(
-                choices=[("pending", "Kutilmoqda"), ("delivered", "Yetkazildi")],
+                choices=[("pending", "Kutilmoqda"), ("delivered", "Yetkazildi")
+],
                 default="pending",
                 max_length=20,
             ),

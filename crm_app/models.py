@@ -21,7 +21,8 @@ class Customer(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     total_amount = models.FloatField()
-    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('completed', 'Completed')])
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), (
+'completed', 'Completed')])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -29,13 +30,15 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='it
+ems')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.FloatField()
 
     def __str__(self):
-        return f"{self.quantity} x {self.product.name} in Order {self.order.id}"
+        return f"{self.quantity} x {self.product.name} in Order {self.order.id}
+"
 
     def total(self):
         return self.quantity * self.price

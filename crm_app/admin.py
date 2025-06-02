@@ -14,7 +14,8 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['customer', 'total_amount', 'status', 'created_at']  # 'order_date' o'rniga 'created_at'
+    list_display = ['customer', 'total_amount', 'status', 'created_at']  # 'ord
+er_date' o'rniga 'created_at'
     list_filter = ['status', 'created_at']  # 'order_date' o'rniga 'created_at'
 
 @admin.register(OrderItem)

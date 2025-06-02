@@ -87,7 +87,8 @@ class OrderItemForm(forms.ModelForm):
     def clean_quantity(self):
         quantity = self.cleaned_data['quantity']
         if quantity <= 0:
-            raise forms.ValidationError("Miqdor 0 dan kichik bo‘lmasligi kerak!")
+            raise forms.ValidationError("Miqdor 0 dan kichik bo‘lmasligi kerak!
+")
         return quantity
 
     def clean_price(self):
@@ -97,4 +98,5 @@ class OrderItemForm(forms.ModelForm):
         return price
 
 # Formsetni yangi forma bilan almashtirish
-OrderItemFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1, can_delete=True)
+OrderItemFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, 
+extra=1, can_delete=True)
